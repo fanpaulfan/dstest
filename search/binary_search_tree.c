@@ -54,8 +54,44 @@ void btree_create(int size, int* data)
 	}
 }
 
+void pre_order_travel(struct node* current)
+{
+	if (current != NULL) {
+		printf("[%d]", current->value);
+		pre_order_travel(current->left);
+		pre_order_travel(current->right);
+	}
+}
+
+void in_order_travel(struct node* current)
+{
+        if (current != NULL) {
+                in_order_travel(current->left);
+                printf("[%d]", current->value);
+                in_order_travel(current->right);
+        }
+}
+
+void post_order_travel(struct node* current)
+{
+        if (current != NULL) {
+                post_order_travel(current->left);
+                post_order_travel(current->right);
+                printf("[%d]", current->value);
+        }
+}
+
 void print_btree()
 {
+	if (head != NULL) {
+		pre_order_travel(head);
+		printf("\n");
+		in_order_travel(head);
+		printf("\n");
+		post_order_travel(head);
+		printf("\n");
+	}
+/*
 	struct node* ptr;
 	
 	printf("show root : [%d]\n", head->value);
@@ -73,8 +109,8 @@ void print_btree()
 		printf("[%d]\n", ptr->value);
 		ptr = ptr->right;
 	}
+*/
 }
-
 
 void main(void)
 {
