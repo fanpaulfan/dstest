@@ -66,8 +66,9 @@ void print_list()
 #define N 2
 
 /*
- * 1->2->3->4->5
- * 2->1->4->3->5
+ * 1->2->3->4->5->6 N=1
+ * 2->1->4->3->6->5 N=2 , 4-1=3
+ * 3->2->1->6->5->4 N=3 , 6-1=5
  */
 int quiz1(struct node* prev, struct node* curr, int cnt)
 {
@@ -87,14 +88,28 @@ int quiz1(struct node* prev, struct node* curr, int cnt)
 
 		prev = curr;
 		curr = forward;
-	} else { //odd
+	} else { //N's
 		forward = curr->next;
 		
+		struct node* tmp = curr->next;
+		int i = 1;
+
+		while (i < 2*N-1) {
+			if(tmp && tmp->next) {
+				tmp = tmp->next;
+			} else {
+				break;
+			}	
+			i++;
+		}
+/*
+		//N = 2:
 		if(curr->next != NULL && curr->next->next != NULL && curr->next->next->next != NULL)
-			curr->next = curr->next->next->next; //N-1 's next
+			curr->next = curr->next->next->next;
 		else if (curr->next != NULL && curr->next->next != NULL)
 			curr->next = curr->next->next;
-
+*/
+		curr->next = tmp;
 		prev = curr;
 		curr = forward;
 	}
